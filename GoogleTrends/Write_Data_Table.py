@@ -178,7 +178,7 @@ def lambda_handler(event, context):
         last_fetch_category = csv_in_category[-1]  # select only the most recent CSV file of the search category
         print(f"last fetch: {last_fetch_category}") # verification check
 
-        # Select only the last_fetch_category of the category and write its content into data table
+        # 2) Select only the last_fetch_category of the category and write its content into data table
         obj = s3.Object(DECRYPTED_BUCKET, last_fetch_category)
         data = obj.get()['Body'].read()
         insert_data(pd.read_csv(io.BytesIO(data), header=0, delimiter=",", low_memory=False), search_category)
