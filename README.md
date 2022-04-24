@@ -42,16 +42,11 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -60,9 +55,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-For this project, we target Pop-Up restaurants, where cooks have much freedom to try new food and meal concepts. They can indeed change their menus very easily.
+<p align="justify">For this project, we target Pop-Up restaurants, where cooks have much freedom to try new food and meal concepts. They can indeed change their menus very easily.
 For the business part, the goal of this project is to help restaurant owners to improve their business. First, we want to support them in the design of their menu and in the choice of their meals based on the population’s food taste. To do so, we will use a Google Trends API. Second, thanks to Edamam API, we will suggest them various recipes which are based on these meals, diet types, or ingredients preferences. Finally, we will also help them to plan their budget. Thus, we want to provide them with an estimated total cost of recipe and its ingredients. We fetch the ingredients price from the Coop website.
-For the technical part, the objectives of our project are first to extract data from different data sources, to be precise, from two APIs, namely Google Trends and Edamam, and to scrape data from the Coop website. Second, we build a Data Lake system where we load the data extracted from the three data sources mentioned previously. In the second part of the project, we will build a Data Warehouse, where we will clean, analyze, and prepare our data to be able to answer our research questions. Finally, we will visualize our data using Tableau Desktop and provide access to our end-users in order to help them to make better decisions when designing their menus.
+For the technical part, the objectives of our project are first to extract data from different data sources, to be precise, from two APIs, namely Google Trends and Edamam, and to scrape data from the Coop website. Second, we build a Data Lake system where we load the data extracted from the three data sources mentioned previously. In the second part of the project, we will build a Data Warehouse, where we will clean, analyze, and prepare our data to be able to answer our research questions. Finally, we will visualize our data using Tableau Desktop and provide access to our end-users in order to help them to make better decisions when designing their menus.</p>
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -77,6 +72,7 @@ For the technical part, the objectives of our project are first to extract data 
 * [AWS S3](https://aws.amazon.com/de/s3/)
 * [EventBridge](https://aws.amazon.com/de/eventbridge/)
 * [Amazon KMS](https://aws.amazon.com/de/kms/)
+* [Amazon Secret Manager](https://aws.amazon.com/de/secrets-manager/)
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -88,9 +84,6 @@ For the technical part, the objectives of our project are first to extract data 
 
 This repository contains all scripts which is used within the AWS environment to run this project. To locally run these scripts, please install all needed python packages according to the requirement.txt file.
 
-### Prerequisites
-
-TBD
 ### Installation
 After cloning this repository, make sure to create a new virtual environment.
 With te following command, you create a venv with the name "venv"
@@ -117,10 +110,7 @@ Now you are ready to run each seperate python file to see for yourself, what fun
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
+Find all examples how to use the scripts within each data source directory.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -128,28 +118,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
+The goal of this module is to build up a proper data lake for a specific usecase.
 
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- CONTACT -->
-## Contact
-
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
-
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
 
 <p align="right">(<a href="#top">back to top</a>)</p>
