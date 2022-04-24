@@ -19,6 +19,7 @@
     ·
     <a href="https://github.com/vithu92/deep_divers/issues">Request Feature</a>
     <br />
+    <p>Team: Deep Divers</p>
     <p>Authors:</p>
     <p>Ezgi Köker Gökgöl</p>
     <p>Vithushan Mahendran</p>

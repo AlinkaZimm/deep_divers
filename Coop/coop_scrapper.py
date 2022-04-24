@@ -18,6 +18,11 @@ import os
 
 
 def load_url_list(path) -> list:
+    """
+    Fetching url list from a json file
+    :param path: path where the list of url is
+    :return: list of strings
+    """
     with open(path, "r") as json_file:
         url_list = json.load(json_file)['url']
 

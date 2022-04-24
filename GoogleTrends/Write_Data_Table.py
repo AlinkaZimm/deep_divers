@@ -1,21 +1,18 @@
 # ------ Importing libraries ------ #
 
-import json
-import psycopg2  # to communicate with a PostgreSQL database
-import psycopg2.extras as extras  # to fill database
-import os
-import boto3
-import sys
 import io
-import pandas as pd
-
-# For AWS credentials
-from boto3 import Session
-
-
+import json
+import os
 # ------ Environment Variables ------ #
 # Source: https://www.youtube.com/watch?v=J9QKS0NrH7I&t=277s
 from base64 import b64decode
+
+import boto3
+import pandas as pd
+import psycopg2  # to communicate with a PostgreSQL database
+import psycopg2.extras as extras  # to fill database
+# For AWS credentials
+from boto3 import Session
 
 # s3_bucket_name
 ENCRYPTED_BUCKET = os.environ['s3_bucket_name']
@@ -70,8 +67,12 @@ def lambda_handler(event, context):
 
     my_bucket = s3.Bucket(DECRYPTED_BUCKET)
 
-    # Connection to the PostgreSQL database
     def connection_db():
+        """
+        To create a connection to the PostgreSQL database
+        :return: Connection to the database
+        """
+
         try:
             conn = psycopg2.connect(
                 f"host={DECRYPTED_HOST} dbname={DECRYPTED_DB} user={DECRYPTED_USR} password={DECRYPTED_PWD}")
@@ -82,6 +83,12 @@ def lambda_handler(event, context):
 
     # Function to write data from dataframe into data table
     def insert_data(df, table):
+        """
+        To write data from dataframe into data table
+        :param df: Pandas Dataframe
+        :param table: Data table name where the data should be written
+        :return: Either the print statement that the data was correctly written or the error that occured
+        """
         # SOURCE: https://www.geeksforgeeks.org/how-to-write-pandas-dataframe-to-postgresql-table/
 
         # Connect to the datalake

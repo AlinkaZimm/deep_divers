@@ -1,27 +1,21 @@
 # ------ Importing libraries ------ #
 
 import json
-from io import StringIO
-from datetime import date
 import os
 import time
-import pandas as pd
-from pytrends.request import TrendReq  # To connect to Google Trends API
+# For Environment Variable
+from base64 import b64decode
+from datetime import date
+from datetime import datetime
+from io import StringIO
 
 # To connect to S3 Bucket
 import boto3
-import sys
-from datetime import datetime
-from os import listdir
-import logging
-from botocore.exceptions import ClientError
-
+import pandas as pd
 # To access to the AWS credentials
 from boto3 import Session
-
-# For Environment Variable
-from base64 import b64decode
-
+from pandas import DataFrame
+from pytrends.request import TrendReq  # To connect to Google Trends API
 
 # ------ Environment Variable ------ #
 # Source: https://www.youtube.com/watch?v=J9QKS0NrH7I&t=277s
@@ -46,47 +40,66 @@ def lambda_handler(event, context):
     day = today.strftime("%d")
     htime = today.strftime("%H%M")
 
-    # Load dataframe as CSV into S3 Bucket
-    # Source: https://stackoverflow.com/questions/38154040/save-dataframe-to-csv-directly-to-s3-python
-    def load_df_into_s3(df, file_name: str):
+    def load_df_into_s3(df: DataFrame, file_name: str) -> None:
+        """
+        To upload a pandas Dataframe into an S3 Bucket with a timestamp when the data was fetched
+        Source: https://stackoverflow.com/questions/38154040/save-dataframe-to-csv-directly-to-s3-python
+        :param df: Pandas dataframe name
+        :param file_name: Desired CSV file name (timestamp will be added)
+        """
         bucket = DECRYPTED_BUCKET
         csv_buffer = StringIO()
         df.to_csv(csv_buffer, index=False)
-        s3.Object(bucket, f"{file_name}_{today.year}_{month}_{day}_{htime}.csv").put(
+        s3.Object(bucket, f"{file_name}_{today.year}_{month}_{day}_{htime}.csv").put(  # timestamp when data was fetched
             Body=csv_buffer.getvalue())  # CSV name
 
-    # Get historical trends for Switzerland (until 2022-03-20)
-    def keyword_trend_time(list_food, category):
+    def keyword_trend_time(list_food, category) -> DataFrame:
+        """
+        To get historical trends for Switzerland (until 2022-03-20)
+        :param list_food: Search term(s), maximum 5
+        :param category: Google Trends category of the search term
+        :return: Dataframe with the search term(s)'s normalised measures
+        """
         pytrend.build_payload(kw_list=list_food,
                               cat=category,
                               timeframe=['today 12-m', 'today 3-m', 'today 1-m'][0],
                               geo='CH',
                               gprop='')  # Web search
-        data = pytrend.interest_over_time().iloc[:-1,:-1]  # -1 row: not record last week, -1 col: to remove column "isPartial"
+        data = pytrend.interest_over_time().iloc[:-1, :-1]  # :-1 (row index): we don't record the last week, -1: (col index): to remove column "isPartial"
         data.reset_index(inplace=True)
         return data
 
-    # Get trends for Switzerland over the last 7 days (starts on 2022-03-27)
-    def keyword_trend_time_7d(list_food, category):
+    def keyword_trend_time_7d(list_food, category) -> DataFrame:
+        """
+        To get trends for Switzerland over the last 7 days (starts on 2022-03-27)
+        :param list_food: Search term(s), maximum 5
+        :param category: Google Trends category of the search term(s)
+        :return: Dataframe with the search term(s)'s normalised measures
+        """
         pytrend.build_payload(kw_list=list_food,
                               cat=category,
                               timeframe=['today 12-m', 'today 3-m', 'today 1-m'][0],
                               geo='CH',
                               gprop='')
-        data = pytrend.interest_over_time().iloc[-1:,:-1]  # [-1:,] To get the last 7day, [,:-1] To remove column "isPartial"
+        data = pytrend.interest_over_time().iloc[-1:, :-1]  # [-1:,] To get the last 7day, [,:-1] To remove column "isPartial"
         data.reset_index(inplace=True)
         return data
 
-    # Gey keywords trend popularity scores per canton
-    def keyword_trend_region(list_food, category):
+    def keyword_trend_region(list_food, category) -> DataFrame:
+        """
+        To get search terms trend's popularity scores per canton
+        :param list_food: Search term(s), maximum 5
+        :param category: Google Trends category of the search term
+        :return: Dataframe with the search term(s)'s normalised measures for each canton of Switzerland
+        """
         pytrend.build_payload(kw_list=list_food,
                               cat=category,
                               timeframe='now 7-d',
                               geo='CH',
                               gprop='')
-        data = pytrend.interest_by_region(resolution='REGION', # canton level
-                                          inc_low_vol=True, # return data for low volume regions
-                                          inc_geo_code=False) # exclude the ISO code of the Swiss cantons 
+        data = pytrend.interest_by_region(resolution='REGION',  # canton level
+                                          inc_low_vol=True,  # return data for low volume regions
+                                          inc_geo_code=False)  # exclude the ISO code of the Swiss cantons
         data['date_last7d'] = [date.today() for n in range(len(data))]
         data.reset_index(inplace=True)
         return data

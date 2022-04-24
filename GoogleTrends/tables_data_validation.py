@@ -2,15 +2,14 @@
 
 import json
 import os
+# ------ Environment Variables ------ #
+# Source: https://www.youtube.com/watch?v=J9QKS0NrH7I&t=277s
+from base64 import b64decode
+
 import boto3
 import psycopg2  # to communicate with a PostgreSQL
 
 # For AWS credentials
-from boto3 import Session
-
-# ------ Environment Variables ------ #
-# Source: https://www.youtube.com/watch?v=J9QKS0NrH7I&t=277s
-from base64 import b64decode
 
 # database host
 ENCRYPTED_HOST = os.environ['host']
@@ -45,8 +44,11 @@ DECRYPTED_PWD = boto3.client('kms').decrypt(
 
 def lambda_handler(event, context):
 
-    # For the connection to PostgreSQL
     def connection_db():
+        """
+        To connect to the PostgreSQL database
+        :return: Connection to the database
+        """
         try:
             conn = psycopg2.connect(
                 f"host={DECRYPTED_HOST} dbname={DECRYPTED_DB} user={DECRYPTED_USR} password={DECRYPTED_PWD}")
@@ -122,8 +124,8 @@ def lambda_handler(event, context):
         print(f"Error: {err}")
 
     cursor.close()
-    conn.commit() # commit the changes
-    conn.close() # close the connection
+    conn.commit()  # commit the changes
+    conn.close()  # close the connection
 
     return {
         'statusCode': 200,
