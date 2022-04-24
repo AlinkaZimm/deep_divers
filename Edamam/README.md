@@ -12,7 +12,7 @@ them from Edamam Recipe Search API. Then, transform the data and loads it to the
 created on AWS RDS.  </p>
 
 
-<p><b>How to run</b><p/>
+<p><b>How to run the code</b><p/>
 <ol>
 <li>Create a Lambda function on AWS. (Python version on Lambda function: 3.7)</li>
 <li>Copy and paste the whole edamam.py file to the Lambda function</li>
