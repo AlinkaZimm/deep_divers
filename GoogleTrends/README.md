@@ -1,11 +1,11 @@
 <p>Author: Alexandra Alinka Zimmermann</p>
 <p>Date: 24.04.2022</p>
 <p>Team: Deep-Divers</p>
-<p><b>Project Name: </b>Data-Driven Restaurants. How To Use Data to Create Attractive Menus?</p>
+<p>Project Name: Data-Driven Restaurants. How To Use Data to Create Attractive Menus?</p>
 
 <p>Data Source: Google Trends API</p>
 Goal: To extract the food and diet preferences of the population in Switzerland.
-<br>Frequency: Every Sunday
+<p></p><br>Frequency: Every Sunday</>
 <ol>
 <li>Fetch & Load<br/>
 First, the data was extracted from the Google Trends API and loaded as 6 CSV files into an S3 Bucket on AWS. 

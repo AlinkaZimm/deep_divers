@@ -1,7 +1,7 @@
 <p>Author: Ezgi Köker Gökgöl</p>
 <p>Date: 24.04.2022</p>
 <p>Team: Deep-Divers</p>
-<br><p><b>Project Name</b><br>Data-Driven Restaurants.<br>How To Use Data to Create Attractive Menus?
+<br><p>Project Name<br>Data-Driven Restaurants.<br>How To Use Data to Create Attractive Menus?
 <br><br>
 <p>Data Source: Edamam Recipe Search API</p>
 <p>Goal: To extract various recipes related with search queries, transform and load them to the database

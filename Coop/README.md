@@ -1,7 +1,7 @@
 <p>Author: Vithushan Mahendran</p>
 <p>Date: 24.04.2022</p>
 <p>Team: Deep-Divers</p>
-<br><p><b>Project Name</b><br>Data-Driven Restaurants.<br>How To Use Data to Create Attractive Menus?
+<br><p>Project Name<br>Data-Driven Restaurants.<br>How To Use Data to Create Attractive Menus?
 <br><br>
 <p>Data Source: Coop.ch</p>
 <p>Goal: With the help of web scrapping fetching all data of coop products
