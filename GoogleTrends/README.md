@@ -5,7 +5,7 @@
 
 <p>Data Source: Google Trends API</p>
 Goal: To extract the food and diet preferences of the population in Switzerland.
-Frequency: Data fetched every Sunday
+<br>Frequency: Every Sunday
 <ol>
 <li>Fetch & Load<br/>
 First, the data was extracted from the Google Trends API and loaded as 6 CSV files into an S3 Bucket on AWS. 
